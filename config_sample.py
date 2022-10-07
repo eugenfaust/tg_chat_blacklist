@@ -1,4 +1,5 @@
 ADMIN_IDS = [123, ]
+WORK_CHAT = 123
 BASE_URL = "https://domain"
 MAIN_BOT_TOKEN = "bot:token"
 MAIN_BOT_PATH = "/webhook/main"

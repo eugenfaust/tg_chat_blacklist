@@ -3,7 +3,7 @@ import traceback
 from typing import Any
 
 from aiogram import Router, types
-from aiogram.dispatcher.handler import ErrorHandler
+from aiogram.handlers import ErrorHandler
 from aiogram.types import Update
 
 import config

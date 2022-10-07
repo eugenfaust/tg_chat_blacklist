@@ -1,15 +1,15 @@
-from sqlalchemy import sql, Column, BigInteger, String, Integer, Boolean, DateTime
+from sqlalchemy import sql, Column, BigInteger, Boolean, Text
 
 from .base import BaseModel
 
 
 class User(BaseModel):
+    # Model for already working project
     __tablename__ = 'users'
-    query: sql.Select
-    id = Column(BigInteger, primary_key=True, unique=True, autoincrement=True)
-    status = Column(Boolean, default=True)
-    admin = Column(Boolean, default=False)
-    last_action = Column(DateTime(timezone=True))
-    username = Column(String(50))
-    full_name = Column(String(50))
-    created = Column(DateTime(timezone=True))
+
+    query: sql.select
+
+    u_id = Column(BigInteger, nullable=False, primary_key=True)
+    u_status = Column(Boolean, nullable=False, default=True)
+    u_username = Column(Text)
+    u_last_active = Column(BigInteger, nullable=False)

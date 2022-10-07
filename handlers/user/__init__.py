@@ -1,14 +1,23 @@
-from aiogram import Router, F
-from aiogram.dispatcher.filters import Command
+import aiogram.types
+from aiogram import Router
 
-from filters import AdminFilter
-from .help import bot_help
-from .start import bot_start, clb_start
+import config
+from models import User
 
 
 def setup():
     router = Router()
-    router.message.register(bot_start, Command(commands='start'))
-    router.message.register(bot_help, Command(commands='help'))
-    router.callback_query.register(clb_start, F.data == 'hello', AdminFilter())
+    router.message.register(filter_message)
     return router
+
+
+async def filter_message(msg: aiogram.types.Message, bot: aiogram.Bot):
+    if not await User.get(msg.from_user.id):
+        await msg.delete()
+        if msg.text:
+            for a in config.ADMIN_IDS:
+                try:
+                    await bot.send_message(a, f'Сообщение от {msg.from_user.full_name} ({msg.from_user.id}) удалено.\n'
+                                       f'Текст: {msg.text}')
+                except:
+                    pass
